@@ -1,25 +1,29 @@
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainApp {
     public static void main(String[] args) {
 
-        System.out.println("=== UC11: Validate Train ID & Cargo Code ===");
+        System.out.println("=== UC12: Safety Compliance Check ===");
 
-        // Patterns
-        String trainIdPattern = "TRN-\\d{4}";
-        String cargoPattern   = "PET-[A-Z]{2}";
+        List<Bogie> goodsBogies = new ArrayList<>();
+        goodsBogies.add(new Bogie("Cylindrical", "Goods", "Petroleum")); // safe
+        goodsBogies.add(new Bogie("Rectangular", "Goods", "Coal"));      // safe
+        goodsBogies.add(new Bogie("Cylindrical", "Goods", "Coal"));      // unsafe!
 
-        // Test inputs
-        String trainId1 = "TRN-1234";  // valid
-        String trainId2 = "TRAIN12";   // invalid
-        String cargo1   = "PET-AB";    // valid
-        String cargo2   = "pet-ab";    // invalid
+        // Safety rule: Cylindrical → only Petroleum allowed
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b -> {
+                    if (b.name.equals("Cylindrical")) {
+                        return b.cargo.equals("Petroleum");
+                    }
+                    return true;
+                });
 
-        // Validate
-        System.out.println(trainId1 + " → " + (trainId1.matches(trainIdPattern) ? "Valid" : "Invalid"));
-        System.out.println(trainId2 + " → " + (trainId2.matches(trainIdPattern) ? "Valid" : "Invalid"));
-        System.out.println(cargo1   + " → " + (cargo1.matches(cargoPattern)     ? "Valid" : "Invalid"));
-        System.out.println(cargo2   + " → " + (cargo2.matches(cargoPattern)     ? "Valid" : "Invalid"));
+        System.out.println("Train Safety Compliant: " + isSafe);
+
+        if (!isSafe) {
+            System.out.println("Warning: Unsafe cargo detected!");
+        }
     }
 }
