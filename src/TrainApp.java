@@ -1,19 +1,14 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
 
 public class TrainApp {
     public static void main(String[] args) {
-        System.out.println("=== UC4: Ordered Train Consist ===");
-        LinkedList<String> consist = new LinkedList<>();
-        consist.add("Engine");
-        consist.add("Sleeper");
-        consist.add("AC");
-        consist.add("Cargo");
-        consist.add("Guard");
-        System.out.println("Initial: " + consist);
-        consist.add(2, "Pantry Car");
-        System.out.println("After inserting Pantry Car: " + consist);
-        consist.removeFirst();
-        consist.removeLast();
-        System.out.println("After removing first & last: " + consist);
+        System.out.println("=== UC5: Insertion Order + Unique ===");
+        LinkedHashSet<String> formation = new LinkedHashSet<>();
+        formation.add("Engine");
+        formation.add("Sleeper");
+        formation.add("Cargo");
+        formation.add("Guard");
+        formation.add("Sleeper"); // duplicate - ignored
+        System.out.println("Train Formation: " + formation);
     }
 }
