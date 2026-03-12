@@ -1,15 +1,12 @@
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class TrainApp {
     public static void main(String[] args) {
-        System.out.println("=== UC2: Passenger Bogies ===");
-        ArrayList<String> bogies = new ArrayList<>();
-        bogies.add("Sleeper");
-        bogies.add("AC Chair");
-        bogies.add("First Class");
-        System.out.println("After Adding: " + bogies);
-        bogies.remove("AC Chair");
-        System.out.println("After Removing AC Chair: " + bogies);
-        System.out.println("Contains Sleeper? " + bogies.contains("Sleeper"));
+        System.out.println("=== UC3: Unique Bogie IDs ===");
+        HashSet<String> bogieIds = new HashSet<>();
+        bogieIds.add("BG101");
+        bogieIds.add("BG102");
+        bogieIds.add("BG101"); // duplicate
+        System.out.println("Bogie IDs: " + bogieIds);
     }
 }
